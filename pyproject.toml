@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "qrscan"
+version = "0.1.0"
+description = "PDF QR code scanner and URL safety checker."
+authors = ["Your Name <your.email@example.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pymupdf = "^1.23"
+opencv-python = "^4.9"
+pyzbar = "^0.1"
+requests = "^2.31"
+pandas = "^2.2"
+tqdm = "^4.66"
+python-dotenv = "^1.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^8.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api" 

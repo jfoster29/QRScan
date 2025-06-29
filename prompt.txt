@@ -1,0 +1,27 @@
+Create a class called QRCodeAgent in agent.py as the main orchestrator for a modular AI agent.
+
+This agent should perform the following steps:
+
+The agent accepts a PDF file path (e.g., sample.pdf) as input. It uses a helper module (pdf_reader.py) to convert the PDF into a list of page images using PyMuPDF (fitz). These images are then passed to qr_decoder.py, which extracts QR code strings using pyzbar and opencv-python.
+
+Next, the agent uses url_checker.py to determine if the QR content is a valid URL, and whether the URL is malicious or safe. This should be done using the VirusTotal API via requests. If the API is not configured, a fallback heuristic method should be used.
+
+Finally, the agent calls result_writer.py to persist the structured results. The output format should default to JSON, with optional support for SQLite.
+
+The class must expose the following public methods:
+
+__init__(self, output_format="json", virus_total_api_key=None)
+scan_pdf(self, pdf_path: str) -> List[Dict] — runs the full pipeline and returns results
+save_results(self, results: List[Dict], output_path: str) — writes results to file
+
+Use Python 3.9+ with type hints and docstrings. Do not duplicate logic from helper modules. This is part of a Poetry-managed project, and the only libraries available are: pymupdf, opencv-python, pyzbar, requests, pandas, tqdm, and python-dotenv. Avoid CLI or FastAPI wrappers.
+
+Here is an example of expected usage:
+
+from pdf_qr_agent import QRCodeAgent
+
+agent = QRCodeAgent(virus_total_api_key="your_api_key")
+results = agent.scan_pdf("sample.pdf")
+agent.save_results(results, "output.json")
+
+Assume the helper modules exist and are importable. The agent should only orchestrate their coordination — not implement PDF parsing, QR decoding, or URL logic itself.
